@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="ru.ayunusov.todolist.presentation.add.AddTaskViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.add.AddTaskFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".presentation.add.AddTaskFragment">
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/startGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/default_margin" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/endGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/default_margin" />
+
+            <EditText
+                android:id="@+id/nameTaskEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:ems="10"
+                android:hint="@string/name"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:maxWidth="@dimen/max_width_edit_text"
+                android:minHeight="@dimen/min_height_edit_text"
+                android:minLines="1"
+                android:text="@={viewmodel.nameTask}"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toStartOf="@+id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/addToolbar" />
+
+            <TextView
+                android:id="@+id/dateStartTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:onClick="@{() -> viewmodel.onSelectNewDate()}"
+                android:text="@{viewmodel.startDate}"
+                app:layout_constraintEnd_toStartOf="@id/timeStartTextView"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/nameTaskEditText"
+                tools:text="01.03.23" />
+
+            <TextView
+                android:id="@+id/timeStartTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewmodel.onSelectNewTime()}"
+                android:text="@{viewmodel.startTime}"
+                app:layout_constraintBaseline_toBaselineOf="@id/dateStartTextView"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toEndOf="@+id/dateStartTextView"
+                tools:text="11:00" />
+
+            <TextView
+                android:id="@+id/dateEndTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:text="@{viewmodel.endDate}"
+                app:layout_constraintEnd_toStartOf="@id/timeEndTextView"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/dateStartTextView"
+                tools:text="01.03.23" />
+
+            <TextView
+                android:id="@+id/timeEndTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.endTime}"
+                app:layout_constraintBaseline_toBaselineOf="@id/dateEndTextView"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toEndOf="@+id/dateEndTextView"
+                tools:text="12:00" />
+
+            <EditText
+                android:id="@+id/descTaskEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/desc_task_edit_text_margin_bottom"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/description"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:minHeight="@dimen/min_height_edit_text"
+                android:text="@={viewmodel.descTask}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/endGuideline"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/timeEndTextView" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/addToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ToolBarStyle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu="@menu/add_menu" />
+
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/compose_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
